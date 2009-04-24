@@ -9,7 +9,7 @@ try {
     $config = array ('transport'=> 'davex', 'url' => 'http://localhost:8080/server','user' => 'admin','pass' => 'admin');
     $session = getJRSession($config);
     $rn = $session->getRootNode();
-    print $rn->getPath . "<br/>";
+    print $rn->getPath() . "<br/>";
     foreach($rn->getNodes() as $node) {
         print $node->getPath() ."<br/>";
     }
