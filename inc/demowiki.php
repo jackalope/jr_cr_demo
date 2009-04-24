@@ -34,26 +34,23 @@ class demowiki {
 
         $docbook = $document->getAsDocbook();
         $converter = new ezcDocumentDocbookToHtmlConverter();
-$converter->options->styleSheet = null;
+        $converter->options->styleSheet = null;
 
-// Add custom CSS style sheets
-$converter->options->styleSheets = array(
-    '/styles/screen.css',
-);
+        // Add custom CSS style sheets
+        $converter->options->styleSheets = array('/styles/screen.css');
         $html = $converter->convert($docbook);
         $xml = $html->save();
         $doc = new DOMDocument();
         $doc->loadXML($xml);
 
         $xp = new DOMXPath($doc);
-        $xp->registerNamespace("xhtml","http://www.w3.org/1999/xhtml");
+        $xp->registerNamespace("xhtml", "http://www.w3.org/1999/xhtml");
         $res = $xp->query("/xhtml:html/xhtml:body/node()");
         $html = "";
         foreach ($res as $node) {
             $html .= $doc->saveXML($node);
         }
         return $html;
-
 
     }
 
