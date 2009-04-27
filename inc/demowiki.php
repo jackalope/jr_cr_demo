@@ -17,7 +17,7 @@ class demowiki {
     }
 
     static function initApp() {
-        ini_set("include_path", JACK_PROJECT_DIR . "/inc/:" . ini_get("include_path"));
+        ini_set("include_path", JACK_PROJECT_DIR . "/inc/:" . JACK_PROJECT_DIR . "/vendor/:". ini_get("include_path"));
         spl_autoload_register(array('demowiki', 'autoload'));
         include_once ("ezc/Base/base.php");
         spl_autoload_register(array("ezcBase", "autoload"));
