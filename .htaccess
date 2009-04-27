@@ -5,4 +5,5 @@ RewriteEngine On
 RewriteCond %{REQUEST_URI}  !^/favicon.ico
 RewriteCond %{REQUEST_URI}  !^/*s/
 RewriteCond %{REQUEST_URI}  !^/.*index.php
+RewriteCond %{REQUEST_URI}  !^/.*info.php
 RewriteRule ^/*(.+)$ ./index.php/$1 [QSA]
