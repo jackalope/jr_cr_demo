@@ -23,11 +23,9 @@ class demowiki {
         spl_autoload_register(array("ezcBase", "autoload"));
     }
 
-    public function view($path) {
-        $rn = $this->session->getRootNode();
+    public function viewAction($path) {
 
-        $n = $rn->getNode("wiki$path/index.txt/jcr:content");
-        $doc = $n->getProperty("jcr:data")->getString();
+        $doc = $this->getSource($path);
         $document = new ezcDocumentConfluenceWiki();
         $document->options->errorReporting = E_PARSE | E_ERROR | E_WARNING;
         $document->loadString($doc);
@@ -54,6 +52,40 @@ class demowiki {
 
     }
 
+    public function editAction($path) {
+        if (isset($_POST['content'])) {
+            $n = $this->getNode($path);
+            $n->setProperty("jcr:data", $_POST['content'], phpCR_PropertyType::STRING);
+        }
+        $doc = $this->getSource($path);
+        $html = "<h2>Edit $path </h2>";
+        $html .= '<form method="post">';
+        $html .= "<textarea name='content' cols='80' rows='40'>";
+        $html .= $doc;
+        $html .= "</textarea><br/>";
+        $html .= '<input type="submit"/>';
+        $html .= '</form>';
+        return $html;
+    }
+
+    protected function getSource($path) {
+        $n = $this->getNode($path);
+        return $n->getProperty("jcr:data")->getString();
+
+    }
+
+    /**
+     * Enter description here...
+     *
+     * @param string $path
+     * @return phpCR_Node
+     */
+    protected function getNode($path) {
+        $rn = $this->session->getRootNode();
+
+        return $rn->getNode("wiki$path/index.txt/jcr:content");
+
+    }
     /**
      * Enter description here...
      *

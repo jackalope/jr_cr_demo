@@ -8,11 +8,19 @@ try {
     $config = array('transport' => 'davex', 'url' => 'http://localhost:8080/server', 'user' => 'admin', 'pass' => 'admin');
     $wiki = new demowiki($config);
     if (isset($_SERVER['PATH_INFO'])) {
-        $path = "/".trim($_SERVER['PATH_INFO'],"/");
+        $path = "/" . trim($_SERVER['PATH_INFO'], "/");
     } else {
         $path = "";
     }
- print    $wiki->view($path);
+    include (JACK_PROJECT_DIR . "tmpl/head.php");
+    if (! isset($_GET['action'])) {
+        print $wiki->viewAction($path);
+    } else {
+        $method = $_GET['action']."Action";
+        print $wiki->$method($path);
+    }
+
+    include (JACK_PROJECT_DIR . "tmpl/foot.php");
 
 } catch (Exception $e) {
     print "<pre>";
