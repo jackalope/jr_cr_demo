@@ -3,8 +3,6 @@
 class demowiki {
 
     /**
-     * Enter description here...
-     *
      * @var phpCR_Session
      */
     protected $session = null;
@@ -12,8 +10,28 @@ class demowiki {
     /**
      *
      */
-    function __construct($config) {
-        $this->session = $this->getJRsession($config);
+    function __construct($sc) {
+        $this->session = $this->getJRSession($sc);
+    }
+
+    /**
+     * Enter description here...
+     *
+     * @param unknown_type $config
+     * @return phpCR_Session
+     */
+    function getJRSession($sc) {
+
+        $repository = $sc->getService("jcr.repository");
+        $workspace = $sc->getParameter("jcr.workspace");
+        $user = $sc->getParameter("jcr.user");
+        if ($user) {
+            $credentials = $sc->getService("jcr.credentials");
+        } else {
+            $credentials = null;
+        }
+        return $repository->login($credentials, $workspace);
+
     }
 
     static function initApp() {
@@ -21,6 +39,16 @@ class demowiki {
         spl_autoload_register(array('demowiki', 'autoload'));
         include_once ("ezc/Base/base.php");
         spl_autoload_register(array("ezcBase", "autoload"));
+
+        include_once ('sfService/sfServiceContainerAutoloader.php');
+        sfServiceContainerAutoloader::register();
+
+        $sc = new sfServiceContainerBuilder();
+
+        $loader = new sfServiceContainerLoaderFileXml($sc);
+        $loader->load(JACK_PROJECT_DIR . '/conf/config.xml');
+        return $sc;
+
     }
 
     public function viewAction($path) {
@@ -49,9 +77,7 @@ class demowiki {
             $html .= $doc->saveXML($node);
         }
         $html .= '<div id="action"><a href="?action=edit" accesskey="e">Edit</a></div>';
-
         return $html;
-
     }
 
     public function editAction($path) {
@@ -92,29 +118,6 @@ class demowiki {
         return $rn->getNode("wiki$path/index.txt/jcr:content");
 
     }
-    /**
-     * Enter description here...
-     *
-     * @param unknown_type $config
-     * @return phpCR_Session
-     */
-    function getJRSession($config) {
-        if (empty($config['url'])) {
-            return false;
-        }
-        if (empty($config['workspace'])) {
-            $config['workspace'] = "default";
-        }
-
-        $repository = jr_cr::lookup($config['url'], $config['transport']);
-        if (isset($config['pass'])) {
-            $credentials = new jr_cr_simplecredentials($config['user'], $config['pass']);
-            return $repository->login($credentials, $config['workspace']);
-
-        } else {
-            return $repository->login(null, $config['workspace']);
-        }
-    }
 
     static function autoload($class) {
 
@@ -129,11 +132,13 @@ class demowiki {
     public function initPages($path = '') {
         $rn = $this->session->getRootNode();
         try {
-            $n =  $rn->getNode("wiki/index.txt");
+            $n = $rn->getNode("wiki/index.txt");
         } catch (phpCR_PathNotFoundException $e) {
             $w = $rn->addNode("wiki", "nt:folder");
         }
-        if ($path == '') { $path = '/';}
+        if ($path == '') {
+            $path = '/';
+        }
         $this->addPage($path, "h1. Placeholder for $path\n Here comes some content");
         return true;
 
@@ -142,7 +147,7 @@ class demowiki {
     protected function addPage($path, $content) {
         $rn = $this->session->getRootNode();
         //$w = $rn->getNode("wiki");
-        $w = $rn->addNode("wiki".$path, "nt:folder");
+        $w = $rn->addNode("wiki" . $path, "nt:folder");
         $f = $w->addNode("index.txt", "nt:file");
         $c = $f->addNode("jcr:content", "nt:unstructured");
         $c->setProperty("jcr:data", $content, phpCR_PropertyType::BINARY);

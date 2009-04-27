@@ -3,12 +3,14 @@ define("JACK_PROJECT_DIR", dirname(__FILE__) . '/');
 define("JACK_WEBROOT", "http://" . $_SERVER['HTTP_HOST'] . str_replace("/index.php", "", $_SERVER['SCRIPT_NAME']));
 include_once (JACK_PROJECT_DIR . "/inc/demowiki.php");
 
-demowiki::initApp();
+
+
+$sc = demowiki::initApp();
+
 
 try {
 
-    $config = array('transport' => 'davex', 'url' => 'http://localhost:8080/server', 'user' => 'admin', 'pass' => 'admin');
-    $wiki = new demowiki($config);
+    $wiki = new demowiki($sc);
     if (isset($_SERVER['PATH_INFO'])) {
         $path = "/" . trim($_SERVER['PATH_INFO'], "/");
     } else {

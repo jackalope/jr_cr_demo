@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony-project.org/2.0/container">
+  <parameters>
+    <parameter key="jcr.url">http://localhost:8080/server</parameter>
+    <parameter key="jcr.user">admin</parameter>
+    <parameter key="jcr.pass">admin</parameter>
+    <parameter key="jcr.workspace">default</parameter>
+    <parameter key="jcr.transport">davex</parameter>
+  </parameters>
+  <services>
+    <service id="jcr.repository" class="jr_cr" constructor="lookup">
+      <argument>%jcr.url%</argument>
+      <argument>%jcr.transport%</argument>
+    </service>
+    <service id="jcr.credentials" class="jr_cr_simplecredentials">
+      <argument>%jcr.user%</argument>
+      <argument>%jcr.pass%</argument>
+    </service>
+  </services>
+</container>
+
+
