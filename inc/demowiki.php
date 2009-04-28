@@ -10,45 +10,8 @@ class demowiki {
     /**
      *
      */
-    function __construct($sc) {
-        $this->session = $this->getJRSession($sc);
-    }
-
-    /**
-     * Enter description here...
-     *
-     * @param unknown_type $config
-     * @return phpCR_Session
-     */
-    function getJRSession($sc) {
-
-        $repository = $sc->getService("jcr.repository");
-        $workspace = $sc->getParameter("jcr.workspace");
-        $user = $sc->getParameter("jcr.user");
-        if ($user) {
-            $credentials = $sc->getService("jcr.credentials");
-        } else {
-            $credentials = null;
-        }
-        return $repository->login($credentials, $workspace);
-
-    }
-
-    static function initApp() {
-        ini_set("include_path", JACK_PROJECT_DIR . "/inc/:" . JACK_PROJECT_DIR . "/vendor/:" . ini_get("include_path"));
-        spl_autoload_register(array('demowiki', 'autoload'));
-        include_once ("ezc/Base/base.php");
-        spl_autoload_register(array("ezcBase", "autoload"));
-
-        include_once ('sfService/sfServiceContainerAutoloader.php');
-        sfServiceContainerAutoloader::register();
-
-        $sc = new sfServiceContainerBuilder();
-
-        $loader = new sfServiceContainerLoaderFileXml($sc);
-        $loader->load(JACK_PROJECT_DIR . '/conf/config.xml');
-        return $sc;
-
+    function __construct(phpCR_Session $session) {
+        $this->session = $session;
     }
 
     public function viewAction($path) {
@@ -154,3 +117,4 @@ class demowiki {
         $this->session->save();
     }
 }
+
