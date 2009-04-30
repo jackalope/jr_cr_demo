@@ -1,6 +1,10 @@
 <?php
 declare(ENCODING = 'utf-8');
-namespace F3\PHPCR;
+
+
+
+
+
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "PHPCR".                      *
@@ -48,7 +52,7 @@ namespace F3\PHPCR;
  * @version $Id: PropertyType.php 1818 2009-01-28 16:46:59Z k-fish $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-final class PropertyType {
+final class phpCR_PropertyType {
 
 	/**
 	 * This constant can be used within a property definition to specify that
@@ -317,25 +321,25 @@ final class PropertyType {
 	 * @author Karsten Dambekalns <karsten@typo3.org>
 	 */
 	static public function valueFromType($type) {
-		switch (\F3\PHP6\Functions::strtolower($type)) {
+		switch (strtolower($type)) {
 			case 'string':
-				return \F3\PHPCR\PropertyType::STRING;
+				return phpCR_PropertyType::STRING;
 				break;
 			case 'boolean':
-				return \F3\PHPCR\PropertyType::BOOLEAN;
+				return phpCR_PropertyType::BOOLEAN;
 				break;
 			case 'integer':
-				return \F3\PHPCR\PropertyType::LONG;
+				return phpCR_PropertyType::LONG;
 				break;
 			case 'float':
 			case 'double':
-				return \F3\PHPCR\PropertyType::DOUBLE;
+				return phpCR_PropertyType::DOUBLE;
 				break;
 			case 'datetime':
-				return \F3\PHPCR\PropertyType::DATE;
+				return phpCR_PropertyType::DATE;
 				break;
 			default:
-				return \F3\PHPCR\PropertyType::UNDEFINED;
+				return phpCR_PropertyType::UNDEFINED;
 		}
 	}
 }

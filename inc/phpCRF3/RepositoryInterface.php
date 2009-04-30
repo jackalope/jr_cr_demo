@@ -1,6 +1,10 @@
 <?php
 declare(ENCODING = 'utf-8');
-namespace F3\PHPCR;
+
+
+
+
+
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "PHPCR".                      *
@@ -35,7 +39,7 @@ namespace F3\PHPCR;
  * @version $Id: RepositoryInterface.php 1979 2009-03-09 15:44:15Z k-fish $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-interface RepositoryInterface {
+interface phpCR_RepositoryInterface {
 
 	/**
 	 * The descriptor key for the version of the specification
@@ -392,12 +396,12 @@ interface RepositoryInterface {
 	 * method Workspace.getAccessibleWorkspaceNames(), allowing the client to select from among
 	 * available "real" workspaces.
 	 *
-	 * @param \F3\PHPCR\CredentialsInterface $credentials The credentials of the user
+	 * @param phpCR_CredentialsInterface $credentials The credentials of the user
 	 * @param string $workspaceName the name of a workspace
-	 * @return \F3\PHPCR\SessionInterface a valid session for the user to access the repository
-	 * @throws \F3\PHPCR\LoginException If the login fails
-	 * @throws \F3\PHPCR\NoSuchWorkspacexception If the specified workspaceName is not recognized
-	 * @throws \F3\PHPCR\RepositoryException if another error occurs
+	 * @return phpCR_SessionInterface a valid session for the user to access the repository
+	 * @throws phpCR_LoginException If the login fails
+	 * @throws phpCR_NoSuchWorkspacexception If the specified workspaceName is not recognized
+	 * @throws phpCR_RepositoryException if another error occurs
 	 */
 	public function login($credentials = NULL, $workspaceName = NULL);
 
@@ -438,7 +442,7 @@ interface RepositoryInterface {
 	 * or not a valid key this method returns NULL.
 	 *
 	 * @param string $key a descriptor key.
-	 * @return \F3\PHPCR\ValueInterface The value of the indicated descriptor
+	 * @return phpCR_ValueInterface The value of the indicated descriptor
 	 */
 	public function getDescriptorValue($key);
 
@@ -450,7 +454,7 @@ interface RepositoryInterface {
 	 * If $key is not a valid key this method returns NULL.
 	 *
 	 * @param string $key a descriptor key.
-	 * @return array of \F3\PHPCR\ValueInterface the value array for the indicated descriptor
+	 * @return array of phpCR_ValueInterface the value array for the indicated descriptor
 	 */
 	public function getDescriptorValues($key);
 

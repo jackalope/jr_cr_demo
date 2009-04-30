@@ -1,6 +1,10 @@
 <?php
 declare(ENCODING = 'utf-8');
-namespace F3\PHPCR;
+
+
+
+
+
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "PHPCR".                      *
@@ -36,7 +40,7 @@ namespace F3\PHPCR;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @scope prototype
  */
-final class SimpleCredentials implements \F3\PHPCR\CredentialsInterface {
+final class phpCR_SimpleCredentials implements phpCR_CredentialsInterface {
 
 	/**
 	 * @var string

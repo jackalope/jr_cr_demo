@@ -1,6 +1,6 @@
 <?php
 declare(ENCODING = 'utf-8');
-namespace F3\PHPCR;
+
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "PHPCR".                      *
@@ -39,7 +39,7 @@ namespace F3\PHPCR;
  * @version $Id: NamespaceRegistryInterface.php 1811 2009-01-28 12:04:49Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-interface NamespaceRegistryInterface {
+interface phpCR_NamespaceRegistryInterface {
 
 	/**
 	 * A constant for the predefined namespace prefix "jcr".
@@ -105,21 +105,21 @@ interface NamespaceRegistryInterface {
 	 * NamespaceRegistry.unregisterNamespace:
 	 * * Attempting to re-assign a built-in prefix (jcr, nt, mix, sv, xml,
 	 *   or the empty prefix) to a new URI will throw a
-	 *   \F3\PHPCR\NamespaceException.
+	 *   phpCR_NamespaceException.
 	 * * Attempting to register a namespace with a prefix that begins with
 	 *   the characters "xml" (in any combination of case) will throw a
-	 *   \F3\PHPCR\NamespaceException.
+	 *   phpCR_NamespaceException.
 	 * * An implementation may prevent the re-assignment of any other namespace
 	 *   prefixes for implementation-specific reasons by throwing a
-	 *   \F3\PHPCR\NamespaceException.
+	 *   phpCR_NamespaceException.
 	 *
 	 * @param string $prefix The prefix to be mapped.
 	 * @param string $uri The URI to be mapped.
 	 * @return void
-	 * @throws \F3\PHPCR\NamespaceException if an illegal attempt is made to register a mapping.
-	 * @throws \F3\PHPCR\UnsupportedRepositoryOperationException in a level 1 implementation
-	 * @throws \F3\PHPCR\AccessDeniedException if the session associated with the Workspace object through which this registry was acquired does not have sufficient permissions to register the namespace.
-	 * @throws \F3\PHPCR\RepositoryException if another error occurs.
+	 * @throws phpCR_NamespaceException if an illegal attempt is made to register a mapping.
+	 * @throws phpCR_UnsupportedRepositoryOperationException in a level 1 implementation
+	 * @throws phpCR_AccessDeniedException if the session associated with the Workspace object through which this registry was acquired does not have sufficient permissions to register the namespace.
+	 * @throws phpCR_RepositoryException if another error occurs.
 	 * */
 	public function registerNamespace($prefix, $uri);
 
@@ -128,19 +128,19 @@ interface NamespaceRegistryInterface {
 	 * Removes a namespace mapping from the registry. The following restriction
 	 * apply:
 	 * * Attempting to unregister a built-in namespace (jcr, nt, mix, sv, xml or
-	 *   the empty namespace) will throw a \F3\PHPCR\NamespaceException.
+	 *   the empty namespace) will throw a phpCR_NamespaceException.
 	 * * An attempt to unregister a namespace that is not currently registered
-	 *   will throw a \F3\PHPCR\NamespaceException.
+	 *   will throw a phpCR_NamespaceException.
 	 * * An implementation may prevent the unregistering of any other namespace
 	 *   for implementation-specific reasons by throwing a
-	 *   \F3\PHPCR\NamespaceException.
+	 *   phpCR_NamespaceException.
 	 *
 	 * @param string $prefix The prefix of the mapping to be removed.
 	 * @return void
-	 * @throws \F3\PHPCR\NamespaceException if an illegal attempt is made to remove a mapping.
-	 * @throws \F3\PHPCR\UnsupportedRepositoryOperationException in a level 1 implementation
-	 * @throws \F3\PHPCR\AccessDeniedException if the session associated with the Workspace object through which this registry was acquired does not have sufficient permissions to unregister the namespace.
-	 * @throws \F3\PHPCR\RepositoryException if another error occurs.
+	 * @throws phpCR_NamespaceException if an illegal attempt is made to remove a mapping.
+	 * @throws phpCR_UnsupportedRepositoryOperationException in a level 1 implementation
+	 * @throws phpCR_AccessDeniedException if the session associated with the Workspace object through which this registry was acquired does not have sufficient permissions to unregister the namespace.
+	 * @throws phpCR_RepositoryException if another error occurs.
 	 * */
 	public function unregisterNamespace($prefix);
 
@@ -148,7 +148,7 @@ interface NamespaceRegistryInterface {
 	 * Returns an array holding all currently registered prefixes.
 	 *
 	 * @return array a string array
-	 * @throws \F3\PHPCR\RepositoryException if an error occurs.
+	 * @throws phpCR_RepositoryException if an error occurs.
 	 * */
 	public function getPrefixes();
 
@@ -156,7 +156,7 @@ interface NamespaceRegistryInterface {
 	 * Returns an array holding all currently registered URIs.
 	 *
 	 * @return array a string array
-	 * @throws \F3\PHPCR\RepositoryException if an error occurs.
+	 * @throws phpCR_RepositoryException if an error occurs.
 	 * */
 	public function getURIs();
 
@@ -165,8 +165,8 @@ interface NamespaceRegistryInterface {
 	 *
 	 * @param $prefix a string
 	 * @return string a string
-	 * @throws \F3\PHPCR\NamespaceException if a mapping with the specified prefix does not exist.
-	 * @throws \F3\PHPCR\RepositoryException is another error occurs
+	 * @throws phpCR_NamespaceException if a mapping with the specified prefix does not exist.
+	 * @throws phpCR_RepositoryException is another error occurs
 	 * */
 	public function getURI($prefix);
 
@@ -175,8 +175,8 @@ interface NamespaceRegistryInterface {
 	 *
 	 * @param string $uri a string
 	 * @return string a string
-	 * @throws \F3\PHPCR\NamespaceException if a mapping with the specified uri does not exist.
-	 * @throws \F3\PHPCR\RepositoryException is another error occurs
+	 * @throws phpCR_NamespaceException if a mapping with the specified uri does not exist.
+	 * @throws phpCR_RepositoryException is another error occurs
 	 * */
 	public function getPrefix($uri);
 

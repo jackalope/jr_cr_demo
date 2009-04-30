@@ -1,6 +1,6 @@
 <?php
 declare(ENCODING = 'utf-8');
-namespace F3\PHPCR;
+
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "PHPCR".                      *
@@ -34,7 +34,7 @@ namespace F3\PHPCR;
  * @version $Id: ItemInterface.php 1818 2009-01-28 16:46:59Z k-fish $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-interface ItemInterface {
+interface phpCR_ItemInterface {
 
 	/**
 	 * Returns the absolute path to this item. If the path includes items that
@@ -43,7 +43,7 @@ interface ItemInterface {
 	 * example, /a/b[3]/c).
 	 *
 	 * @returns string the path of this Item.
-	 * @throws \F3\PHPCR\RepositoryException if an error occurs.
+	 * @throws phpCR_RepositoryException if an error occurs.
 	 */
 	public function getPath();
 
@@ -54,7 +54,7 @@ interface ItemInterface {
 	 * $this->getDepth() == 0), an empty string will be returned.
 	 *
 	 * @return string the (or a) name of this Item or an empty string if this Item is the root node.
-	 * @throws \F3\PHPCR\RepositoryException if an error occurs.
+	 * @throws phpCR_RepositoryException if an error occurs.
 	 */
 	public function getName();
 
@@ -72,10 +72,10 @@ interface ItemInterface {
 	 * If depth > n is specified then a ItemNotFoundException is thrown.
 	 *
 	 * @param integer $depth An integer, 0 <= depth <= n where n is the depth of this Item.
-	 * @return \F3\PHPCR\ItemInterface The ancestor of this Item at the specified depth.
-	 * @throws \F3\PHPCR\ItemNotFoundException if depth &lt; 0 or depth &gt; n where n is the depth of this item.
-	 * @throws \F3\PHPCR\AccessDeniedException if the current session does not have sufficient access rights to retrieve the specified node.
-	 * @throws \F3\PHPCR\RepositoryException if another error occurs.
+	 * @return phpCR_ItemInterface The ancestor of this Item at the specified depth.
+	 * @throws phpCR_ItemNotFoundException if depth &lt; 0 or depth &gt; n where n is the depth of this item.
+	 * @throws phpCR_AccessDeniedException if the current session does not have sufficient access rights to retrieve the specified node.
+	 * @throws phpCR_RepositoryException if another error occurs.
 	 */
 	public function getAncestor($depth);
 
@@ -89,7 +89,7 @@ interface ItemInterface {
 	 * * And so on to this Item.
 	 *
 	 * @return integer The depth of this Item in the workspace hierarchy.
-	 * @throws \F3\PHPCR\RepositoryException if an error occurs.
+	 * @throws phpCR_RepositoryException if an error occurs.
 	 */
 	public function getDepth();
 
@@ -99,8 +99,8 @@ interface ItemInterface {
 	 * call Session->getRootNode(), Session->getItem() or
 	 * Session.getNodeByIdentifier(). This method returns that Session object.
 	 *
-	 * @return \F3\PHPCR\SessionInterface the Session through which this Item was acquired.
-	 * @throws \F3\PHPCR\RepositoryException if an error occurs.
+	 * @return phpCR_SessionInterface the Session through which this Item was acquired.
+	 * @throws phpCR_RepositoryException if an error occurs.
 	 */
 	public function getSession();
 
@@ -170,20 +170,20 @@ interface ItemInterface {
 	 * same state (see section 5.1.3 Reflecting Item State in the JSR 283 specification
 	 * document) so comparing state is not an issue.
 	 *
-	 * @param \F3\PHPCR\ItemInterface $otherItem the Item object to be tested for identity with this Item.
+	 * @param phpCR_ItemInterface $otherItem the Item object to be tested for identity with this Item.
 	 * @return boolean TRUE if this Item object and otherItem represent the same actual repository item; FALSE otherwise.
-	 * @throws \F3\PHPCR\RepositoryException if an error occurs.
+	 * @throws phpCR_RepositoryException if an error occurs.
 	 */
-	public function isSame(\F3\PHPCR\ItemInterface $otherItem);
+	public function isSame(phpCR_ItemInterface $otherItem);
 
 	/**
 	 * Accepts an ItemVistor. Calls the appropriate ItemVistor visit method of
 	 * the visitor according to whether this Item is a Node or a Property.
 	 *
-	 * @param \F3\PHPCR\ItemVisitorInterface $visitor The ItemVisitor to be accepted.
-	 * @throws \F3\PHPCR\RepositoryException if an error occurs.
+	 * @param phpCR_ItemVisitorInterface $visitor The ItemVisitor to be accepted.
+	 * @throws phpCR_RepositoryException if an error occurs.
 	 */
-	public function accept(\F3\PHPCR\ItemVisitorInterface $visitor);
+	public function accept(phpCR_ItemVisitorInterface $visitor);
 
 	/**
 	 * If keepChanges is false, this method discards all pending changes
@@ -201,8 +201,8 @@ interface ItemInterface {
 	 *
 	 * @param boolean $keepChanges a boolean
 	 * @return void
-	 * @throws \F3\PHPCR\InvalidItemStateException if this Item object represents a workspace item that has been removed (either by this session or another).
-	 * @throws \F3\PHPCR\RepositoryException if another error occurs.
+	 * @throws phpCR_InvalidItemStateException if this Item object represents a workspace item that has been removed (either by this session or another).
+	 * @throws phpCR_RepositoryException if another error occurs.
 	*/
 	public function refresh($keepChanges);
 
@@ -223,11 +223,11 @@ interface ItemInterface {
 	 * current Session has read access to that REFERENCE property.
 	 *
 	 * @return void
-	 * @throws \F3\PHPCR\Version\VersionException if the parent node of this item is versionable and checked-in or is non-versionable but its nearest versionable ancestor is checked-in and this implementation performs this validation immediately instead of waiting until save.
-	 * @throws \F3\PHPCR\Lock\LockException if a lock prevents the removal of this item and this implementation performs this validation immediately instead of waiting until save.
-	 * @throws \F3\PHPCR\ConstraintViolationException if removing the specified item would violate a node type or implementation-specific constraint and this implementation performs this validation immediately instead of waiting until save.
-	 * @throws \F3\PHPCR\AccessDeniedException if this item or an item in its subtree is currently the target of a REFERENCE property located in this workspace but outside this item's subtree and the current Session does not have read access to that REFERENCE property or if the current Session does not have sufficent privileges to remove the item.
-	 * @throws \F3\PHPCR\RepositoryException if another error occurs.
+	 * @throws phpCR_Version\VersionException if the parent node of this item is versionable and checked-in or is non-versionable but its nearest versionable ancestor is checked-in and this implementation performs this validation immediately instead of waiting until save.
+	 * @throws phpCR_Lock\LockException if a lock prevents the removal of this item and this implementation performs this validation immediately instead of waiting until save.
+	 * @throws phpCR_ConstraintViolationException if removing the specified item would violate a node type or implementation-specific constraint and this implementation performs this validation immediately instead of waiting until save.
+	 * @throws phpCR_AccessDeniedException if this item or an item in its subtree is currently the target of a REFERENCE property located in this workspace but outside this item's subtree and the current Session does not have read access to that REFERENCE property or if the current Session does not have sufficent privileges to remove the item.
+	 * @throws phpCR_RepositoryException if another error occurs.
 	 * @see SessionInterface::removeItem(String)
 	 */
 	public function remove();

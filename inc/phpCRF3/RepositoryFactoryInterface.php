@@ -1,6 +1,10 @@
 <?php
 declare(ENCODING = 'utf-8');
-namespace F3\PHPCR;
+
+
+
+
+
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "PHPCR".                      *
@@ -38,13 +42,13 @@ namespace F3\PHPCR;
  *    $repo = \F3\SomeRepository\RepositoryFactory::getRepository($parameters);
  *
  * Get a default repository available in this environment:
- *    $repo = \F3\PHPCR\RepositoryFactory::getRepository();
+ *    $repo = phpCR_RepositoryFactory::getRepository();
  *
  * @package PHPCR
  * @version $Id: RepositoryFactoryInterface.php 1811 2009-01-28 12:04:49Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-interface RepositoryFactoryInterface {
+interface phpCR_RepositoryFactoryInterface {
 
 	/**
 	 * Attempts to establish a connection to a repository using the given
@@ -62,8 +66,8 @@ interface RepositoryFactoryInterface {
 	 * factory is not able to identify a default repository.
 	 *
 	 * @param array|NULL $parameters string key/value pairs as repository arguments or NULL if a client wishes to connect to a default repository.
-	 * @return \F3\PHPCR\RepositoryInterface a repository instance or NULL if this implementation does not understand the passed parameters
-	 * @throws \F3\PHPCR\RepositoryException if getRepository fails or if no suitable (default) repository is found.
+	 * @return phpCR_RepositoryInterface a repository instance or NULL if this implementation does not understand the passed parameters
+	 * @throws phpCR_RepositoryException if getRepository fails or if no suitable (default) repository is found.
 	 */
 	public function getRepository(array $parameters = NULL);
 

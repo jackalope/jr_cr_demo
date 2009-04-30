@@ -1,6 +1,6 @@
 <?php
 declare(ENCODING = 'utf-8');
-namespace F3\PHPCR;
+
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "PHPCR".                      *
@@ -36,7 +36,7 @@ namespace F3\PHPCR;
  * @version $Id: BinaryInterface.php 1811 2009-01-28 12:04:49Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-interface BinaryInterface {
+interface phpCR_BinaryInterface {
 
 	/**
 	 * Returns a stream representation of this value.
@@ -45,7 +45,7 @@ interface BinaryInterface {
 	 * on the returned stream.
 	 *
 	 * @return resource A stream representation of this value.
-	 * @throws \F3\PHPCR\RepositoryException if another error occurs.
+	 * @throws phpCR_RepositoryException if another error occurs.
 	 */
 	public function getStream();
 
@@ -58,7 +58,7 @@ interface BinaryInterface {
 	 * @return integer the number of bytes read into the buffer
 	 * @throws \RuntimeException if an I/O error occurs.
 	 * @throws \InvalidArgumentException if offset is negative.
-	 * @throws \F3\PHPCR\RepositoryException if another error occurs.
+	 * @throws phpCR_RepositoryException if another error occurs.
 	 */
 	public function read(&$bytes, $position);
 
@@ -66,7 +66,7 @@ interface BinaryInterface {
 	 * Returns the size of this Binary value in bytes.
 	 *
 	 * @return integer the size of this value in bytes.
-	 * @throws \F3\PHPCR\RepositoryException if another error occurs.
+	 * @throws phpCR_RepositoryException if another error occurs.
 	 */
 	public function getSize();
 

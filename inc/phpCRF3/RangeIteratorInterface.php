@@ -1,6 +1,10 @@
 <?php
 declare(ENCODING = 'utf-8');
-namespace F3\PHPCR;
+
+
+
+
+
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "PHPCR".                      *
@@ -35,7 +39,7 @@ namespace F3\PHPCR;
  * @version $Id: RangeIteratorInterface.php 1811 2009-01-28 12:04:49Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-interface RangeIteratorInterface extends \F3\PHPCR\IteratorInterface {
+interface phpCR_RangeIteratorInterface extends phpCR_IteratorInterface {
 
 	/**
 	 * Skip a number of elements in the iterator.

@@ -1,6 +1,6 @@
 <?php
 declare(ENCODING = 'utf-8');
-namespace F3\PHPCR;
+
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "PHPCR".                      *
@@ -34,7 +34,7 @@ namespace F3\PHPCR;
  * @version $Id: MergeException.php 1811 2009-01-28 12:04:49Z robert $
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class MergeException extends \F3\PHPCR\RepositoryException {
+class phpCR_MergeException extends phpCR_RepositoryException {
 }
 
 ?>
