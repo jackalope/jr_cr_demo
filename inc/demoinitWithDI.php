@@ -11,10 +11,10 @@ class demoinitWithDI extends demoinit {
 
     }
 
-   static function initAppAndGetSession($conf = 'config/conf.xml') {
+    static function initAppAndGetSession($conf = 'config/conf.xml') {
         self::initApp();
         return self::getSession($conf);
-   }
+    }
 
     static function getSession($conf = 'config/conf.xml') {
         $sc = self::getServiceContainer($conf);
