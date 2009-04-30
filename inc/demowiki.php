@@ -10,7 +10,7 @@ class demowiki {
     /**
      *
      */
-    function __construct(phpCR_Session $session) {
+    function __construct(phpCR_SessionInterface $session) {
         $this->session = $session;
     }
 
@@ -84,7 +84,13 @@ class demowiki {
 
     static function autoload($class) {
 
+
         $incFile = str_replace("_", DIRECTORY_SEPARATOR, $class) . ".php";
+        if (substr($class,0,5) == 'phpCR') {
+            $incFile = str_replace("phpCR/","phpCRF3/",$incFile);
+        }
+         print $incFile;
+        print "<br>";
         if (@fopen($incFile, "r", TRUE)) {
             include ($incFile);
             return $incFile;
